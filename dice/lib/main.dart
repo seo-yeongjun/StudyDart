@@ -6,7 +6,7 @@ void main() {
     MaterialApp(
       home: Scaffold(
           //gradation color
-          body: GradientContainer()),
+          body: GradientContainer.withInstagramStyleGradient()),
     ),
   );
 }
