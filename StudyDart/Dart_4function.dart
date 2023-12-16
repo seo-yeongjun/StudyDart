@@ -48,5 +48,9 @@ void main() {
     print('나눗셈 결과: ${div(a, b)}');
   }
 
-  printResult(4, 3);
+  void test(int a,d,{b,c}){
+    print(a+b+c);
+  }
+
+  test(3,'g',b:1);
 }
