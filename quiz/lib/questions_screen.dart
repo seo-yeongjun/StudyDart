@@ -5,22 +5,26 @@ import 'model/quiz_question.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  final void Function() indexPlus;
 
-  const QuestionsScreen(this.indexPlus, {super.key});
+  final void Function() indexPlus;
+  final void Function(int index) selectAnswer;
+
+
+  const QuestionsScreen(this.indexPlus, this.selectAnswer, {super.key});
+
 
   @override
   State<QuestionsScreen> createState() {
     return _QuestionsScreen();
   }
+
 }
 
 class _QuestionsScreen extends State<QuestionsScreen> {
   int currentQuestionIndex = 0; // 현재 질문 인덱스
   late QuizQuestion currentQuestion; // 현재 질문 가져오기
-  late Function() indexPlus;
 
-  List<int> selectNumbers = [];
+
 
   @override
   void initState() {
@@ -31,14 +35,13 @@ class _QuestionsScreen extends State<QuestionsScreen> {
 
   void selectAnswer(int index) {
     setState(() {
-      selectNumbers.add(index);
+      print("selectAnswer");
+      widget.selectAnswer(index);
       currentQuestionIndex++;
-      currentQuestion = questions[currentQuestionIndex];
-
-      if (currentQuestionIndex >= 4) {
-        print("selectNumbers: $selectNumbers");
+      if (currentQuestionIndex > 4) {
         widget.indexPlus();
       }
+      currentQuestion = questions[currentQuestionIndex];
     });
   }
 

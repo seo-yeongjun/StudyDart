@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/questions_screen.dart';
+import 'package:quiz/result_screen.dart';
 
 import 'init_screen.dart';
 
@@ -13,6 +14,13 @@ class Quiz extends StatefulWidget {
 class _Quiz extends State<Quiz> {
   late Widget activeScreen;
   int screenIndex = 0;
+  List<int> selectNumbers = [];
+
+  void selectAnswer(int index) {
+    setState(() {
+      selectNumbers.add(index);
+    });
+  }
 
   @override
   void initState() {
@@ -23,6 +31,10 @@ class _Quiz extends State<Quiz> {
   void indexPlus() {
     setState(() {
       screenIndex++;
+      if (screenIndex > 2) {
+        screenIndex = 0;
+        selectNumbers.clear(); // Clear the selections when restarting the quiz
+      }
       switchScreen(screenIndex);
     });
   }
@@ -34,10 +46,10 @@ class _Quiz extends State<Quiz> {
           activeScreen = InitScreen(indexPlus);
           break;
         case 1:
-          activeScreen = QuestionsScreen(indexPlus);
+          activeScreen = QuestionsScreen(indexPlus, selectAnswer);
           break;
         case 2:
-          activeScreen = Container();
+          activeScreen = ResultScreen(selectNumbers, indexPlus);
           break;
       }
     });
